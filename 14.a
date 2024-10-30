@@ -1,0 +1,61 @@
+class Grafo:
+    def __init__(self):
+        # Diccionario para almacenar los vértices y sus conexiones
+        self.grafo = {}
+
+    def agregar_vertice(self, vertice):
+        # Agregar un vértice al grafo si no existe
+        if vertice not in self.grafo:
+            self.grafo[vertice] = []
+
+    def agregar_arista(self, vertice1, vertice2):
+        # Agregar una arista entre dos vértices (grafo no dirigido)
+        if vertice1 in self.grafo and vertice2 in self.grafo:
+            self.grafo[vertice1].append(vertice2)
+            self.grafo[vertice2].append(vertice1)
+
+    def adyacentes(self, vertice):
+        # Retornar los vértices adyacentes a uno dado
+        return self.grafo.get(vertice, [])
+
+    def buscar_camino(self, inicio, fin, camino=None):
+        # Buscar un camino entre dos vértices usando búsqueda en profundidad
+        if camino is None:
+            camino = []
+        camino.append(inicio)
+        if inicio == fin:
+            return camino
+        if inicio not in self.grafo:
+            return None
+        for vecino in self.grafo[inicio]:
+            if vecino not in camino:
+                nuevo_camino = self.buscar_camino(vecino, fin, camino.copy())
+                if nuevo_camino:
+                    return nuevo_camino
+        return None
+
+# Creación del grafo
+casa = Grafo()
+
+# Agregamos cada ambiente como un vértice
+ambientes = ["cocina", "comedor", "cochera", "quincho", "baño 1", "baño 2", 
+             "habitación 1", "habitación 2", "sala de estar", "terraza", "patio"]
+
+for ambiente in ambientes:
+    casa.agregar_vertice(ambiente)
+
+# Agregamos las conexiones entre los ambientes (aristas)
+conexiones = [
+    ("cocina", "comedor"), ("cocina", "terraza"), ("comedor", "sala de estar"),
+    ("sala de estar", "habitación 1"), ("sala de estar", "habitación 2"),
+    ("cochera", "quincho"), ("cochera", "patio"), ("terraza", "patio"),
+    ("baño 1", "habitación 1"), ("baño 2", "habitación 2"),
+    ("quincho", "patio")
+]
+
+for v1, v2 in conexiones:
+    casa.agregar_arista(v1, v2)
+
+# Ejemplo de uso:
+print("Ambientes adyacentes a la cocina:", casa.adyacentes("cocina"))
+print("Camino de la cocina a la habitación 2:", casa.buscar_camino("cocina", "habitación 2"))
