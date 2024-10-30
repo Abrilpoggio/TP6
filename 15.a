@@ -1,0 +1,60 @@
+class Maravilla:
+    def __init__(self, nombre, paises, tipo):
+        """
+        Inicializa una maravilla con nombre, país(es) y tipo.
+        """
+        self.nombre = nombre
+        self.paises = paises  # Lista de países para maravillas naturales que pueden ubicarse en varios países
+        self.tipo = tipo      # Tipo: 'natural' o 'arquitectónica'
+        
+    def __repr__(self):
+        return f"{self.nombre} ({self.tipo}) - Ubicación: {', '.join(self.paises)}"
+
+
+class Grafo:
+    def __init__(self):
+        """
+        Inicializa un grafo vacío.
+        """
+        self.vertices = {}  # Diccionario para almacenar las maravillas
+
+    def agregar_maravilla(self, maravilla):
+        """
+        Agrega una maravilla al grafo.
+        """
+        if maravilla.nombre not in self.vertices:
+            self.vertices[maravilla.nombre] = maravilla
+        else:
+            print(f"La maravilla {maravilla.nombre} ya existe en el grafo.")
+
+    def mostrar_maravillas(self):
+        """
+        Muestra todas las maravillas almacenadas en el grafo.
+        """
+        for nombre, maravilla in self.vertices.items():
+            print(maravilla)
+
+
+# Crear el grafo
+maravillas_grafo = Grafo()
+
+# Agregar maravillas arquitectónicas
+maravillas_grafo.agregar_maravilla(Maravilla("Chichén Itzá", ["México"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Cristo Redentor", ["Brasil"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Coliseo", ["Italia"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Gran Muralla China", ["China"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Machu Picchu", ["Perú"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Petra", ["Jordania"], "arquitectónica"))
+maravillas_grafo.agregar_maravilla(Maravilla("Taj Mahal", ["India"], "arquitectónica"))
+
+# Agregar maravillas naturales
+maravillas_grafo.agregar_maravilla(Maravilla("Cataratas del Iguazú", ["Argentina", "Brasil"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Amazonas", ["Brasil", "Perú", "Colombia", "Venezuela", "Ecuador", "Bolivia", "Guyana", "Surinam"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Bahía de Ha Long", ["Vietnam"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Isla Jeju", ["Corea del Sur"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Parque Nacional de Komodo", ["Indonesia"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Río Subterráneo de Puerto Princesa", ["Filipinas"], "natural"))
+maravillas_grafo.agregar_maravilla(Maravilla("Montaña de la Mesa", ["Sudáfrica"], "natural"))
+
+# Mostrar todas las maravillas almacenadas
+maravillas_grafo.mostrar_maravillas()
